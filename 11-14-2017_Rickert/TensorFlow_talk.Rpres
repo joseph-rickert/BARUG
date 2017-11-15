@@ -1,0 +1,31 @@
+TensorFlow_talk
+========================================================
+author: 
+date: 
+autosize: true
+
+First Slide
+========================================================
+
+For more details on authoring R presentations please visit <https://support.rstudio.com/hc/en-us/articles/200486468>.
+
+TensorFlow has emerged as the premiere machine learning platform for:
+- Deep Learning
+- Machine Learning
+- Production Deployment
+
+Slide With Code
+========================================================
+
+```{r}
+library(keras)
+mnist <- dataset_mnist()
+str(mnist,give.attr = FALSE)
+```
+
+Slide With Plot
+========================================================
+
+```{r, echo=FALSE}
+plot(cars)
+```
