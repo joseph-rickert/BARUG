@@ -1,0 +1,61 @@
+---
+title: "Links to  12-11-18  BARUG Presentations"
+author: "Joseph Rickert"
+date: "12/12/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+### Agenda:
+6:30 - Pizza and Networking
+7:00 - Announcements
+7:05 - Anirudh Acharya: An Introduction to the MXNet-R package (lightning talk)
+7:20 - Emma Rudie - RStudio Connect at GRAIL
+7:40 - Peter Li - Have you tesselated today?
+8:05 - Dan Putler- Some Intuition on Why Collinearity Can Be "Bad", and When It Should Be a Concern (lightning talk)
+8:20 - Rami Krispin - Introduction to the TSstudio package
+
+
+### Links for Dan Putler's Talk
+Some Intuition on Why Collinearity Can Be "Bad", and When It Should Be a Concern (lightning talk)
+
+[PDF files and the R script for the Monte Carlo experiments](https://github.com/dputler/presentations/tree/master/BARUG_11_Dec_2018)
+
+
+[The blog post my talk was based on](https://community.alteryx.com/t5/Data-Science-Blog/How-Concerned-Should-You-be-About-Predictor-Collinearity-It/ba-p/316701)
+
+
+### Links to Anirudh Acharya's Talk
+
+[MXNet R package](https://github.com/apache/incubator-mxnet/tree/master/R-package)
+[MXNet R tutorials](http://mxnet.incubator.apache.org/tutorials/index.html#r-tutorials)
+[MXNet R Documentation](https://s3.amazonaws.com/mxnet-prod/docs/R/mxnet-r-reference-manual.pdf)
+
+The autoencoder example we went over will be posted here as a tutorial pretty soon)
+
+### Emma Rudié Poem
+**RStudio Connect**
+R has always been, my go-to tool of choice
+Statisticians far and wide, in R have found their voice
+Commands which follow smoothly, from a math-y frame of mind
+Almost any test you might conduct, has already been defined
+Visualizing reproducibly is a cinch with ggplot
+Rmarkdowns make it easy to show your train of thought
+Plotly gives you hovertext, sliderbars, and more
+And Shiny int’ractivity lets users independently explore
+But as the language gives us more and more new ways to show our work
+Sharing all these different files can leave one feeling irked
+If ever you have wished for a single central hub
+Like an internal equivalent to the wide-open RPubs
+Then let me recommend to you: RStudio Connect
+For we’ve recently adopted it, to resounding positive effect
+Publishing is simple, with a single GUI click
+Collaboration now has seen, a definite uptick
+Choosing who sees what, and when reports should run
+Is as easily as said as, in practice, done!
+And if your ears want more, please patiently attend
+For what here shall miss, this talk shall strive to mend
