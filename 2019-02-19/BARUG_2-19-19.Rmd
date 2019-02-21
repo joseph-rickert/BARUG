@@ -1,0 +1,125 @@
+---
+title: "Searching for R Packages"
+output: html_notebook
+---
+
+One of the most vexing problems for R users, and experienced alike, is to find packages with functions that can halp you do some new task. Recently, within the past year or so, a few packages have been written to help. The following recreates my strategy, more or less, to find what's out there for plotting [ROC curves](https://rviews.rstudio.com/2019/01/17/roc-curves/).
+
+### Packages for Searching
+
+There are two promary packages for searching `CRAN`: [packagefinder](https://CRAN.R-project.org/package=packagefinder) and [pkgesearch](https://CRAN.R-project.org/package=pkgsearch).
+
+I will be using Gábor Csárdi's `pkgsearch` package, which is newer and has better documantation. You can find a blog post which used `packagefinder` [here](https://rviews.rstudio.com/2018/10/22/searching-for-r-packages/).
+
+
+```{r, warning=FALSE, message=FALSE}
+
+library(tidyverse)  # for data manipulation
+library(dlstats)    # for package download stats
+#library(packagefinder) # for searching packages
+library(pkgsearch)  # for searching packages
+```  
+
+### Searching with `pkgsearch`
+First we try some exploratory work to settle on a query. The documentation says:
+
+Ranking:   
+
+>The most important feature of a search engine is the ranking of the results. The best results should be listed first. pkgsearch uses weighted scoring, where a match in the package title gets a higher score than a match in the package desciption. It also uses the number of reverse dependencies and the number of downloads to weight the scores:
+
+Preferring Phrases: 
+
+>The search engine prefers matching whole phrases over single words. E.g. the search phrase “permutation test” will rank coin higher than testthat, even though testthat is a much better result for the single word “test”. 
+
+
+```{r}
+r1 <- as_tibble(pkg_search("Receiver Operating Characteristic"))
+names(r1)
+
+```
+
+```{r}
+r1 %>% select(score, package, revdeps, downloads_last_month)
+```
+
+
+```{r}
+r2 <- as_tibble(pkg_search("ROC"))
+r2 %>% select(score, package, revdeps, downloads_last_month)
+```
+
+
+```{r}
+r3 <- as_tibble(pkg_search(" Receiver Operating Characteristic Curve, ROC"))
+r3 %>% select(score, package, revdeps, downloads_last_month)
+```
+
+Let's cast a wide net and get the top 200 packages with the query: "Receiver Operating Characteristic Curve, ROC"
+
+```{r}
+rocPkgs  <- as_tibble(pkg_search(query="Receiver Operating Characteristic, ROC",size=400))
+
+```
+
+
+```{r}
+topRoc <- rocPkgs %>% filter(score > 15)
+dim(topRoc)
+topRoc %>% select(score, package, title) %>% head
+```
+
+### The Tough Part
+Looking through the packages selected with scores > 15, I selected 6 packages that I thought would meet most peoples plotting needs. I did not select any of the packages made to used with survial data. That would be a much more specialized need,
+
+
+```{r}
+shortList <- rocPkgs %>% filter(package %in% c("pROC","precrec","ROCit", "PRROC","ROCR","plotROC")) %>%
+            select(score, package, revdeps, title, description )
+shortList
+```
+
+
+### A Closer Look at Downloads
+
+Now, we us Guangchuang Yu's `dlstats` package to take a closer looka at downloads.
+
+
+```{r,message=FALSE,warning=FALSE}
+downloads <- cran_stats(shortList$package)
+topDown <- downloads %>% group_by(package) %>% summarize(downloads = sum(downloads)) %>%
+           arrange(desc(downloads))
+
+rocFinal <- right_join(shortList,topDown)
+dim(rocFinal)
+```   
+
+```{r}
+rocFinal %>% select(package, score, downloads)
+```
+
+```{r}
+
+ggplot(downloads, aes(end, downloads, group=package, color=package)) +
+  geom_line() + geom_point(aes(shape=package))
+
+```
+
+
+
+
+Note, that on February 8th the following query turned up 418 packages.
+```{r,eval=FALSE}
+allROC <- pkg_search(query="Receiver Operating Characteristic, ROC",
+             format = "short",
+              size=10000)
+dim(allROC)
+```
+
+
+
+
+
+
+
+
+
